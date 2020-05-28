@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<title>ESP8266</title>
+	<meta charset="UTF-8">
+	<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<style>
+		body {font-family: "Arial", sans-serif; background-image:url('http://test.here/img/pcb_small.jpg');
+		background-size:cover;}
+		body, html {height: 100%;}
+		#main{
+			position:absolute;
+			left:0;
+			top:0;
+			bottom:0;
+			right:0;
+			width:100%;
+			height:100%;
+			background:rgba(255,255,255,.15);
+		}
+		#inner {background: white; border-radius:.5rem;
+		}
+		.buttons {color:#fff; line-height:5rem;}
+	</style>
+	<body>
+		<div id="main">
+			<div class="w3-container w3-display-middle w3-center" id="inner">
+				<h1 class="w3-jumbo">
+					ESP8266
+				</h1>
+				<p class="w3-large">
+					Unknow application toggle switch
+				</p>
+				<div class="w3-bar buttons" style="width:100%">
+					<a href="/?r=on" class="w3-bar-item w3-button w3-xxlarge w3-teal w3-padding-large" style="width:50%">ON</a>
+					<a href="/?r=off" class="w3-bar-item w3-button w3-xxlarge w3-red w3-padding-large" style="width:50%">OFF</a>
+				</div>
+				<div class="inner">
+					<h2>
+						Current State : r_state
+					</h2>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
