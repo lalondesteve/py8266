@@ -1,6 +1,5 @@
 from relay import Relay
 from time import localtime as lt
-from time import sleep_ms as sleep
 
 r = Relay()
 
@@ -15,22 +14,21 @@ def web_page():
         r_state = "OFF"
     return html.replace('r_state', r_state)
 
-def log_write(data):
-    with open('log.txt', 'a') as f:
-        f.write(data)
-        f.write('\n')
-
 def now():
     # y, m, d, h, m, s, _, _ = lt()
-    return "{0}-{1:=02}-{2:=02}_{3:=02}:{4:=02}:{5:=02}".format(*lt())
+    return "{0}-{1:=02}-{2:=02}_{3:=02}:{4:=02}:{5:=02} ".format(*lt())
+
+def log_write(data):
+    with open('log.txt', 'a') as f:
+        f.write(now())
+        f.write(data)
+        f.write('\n')
 
 def serve():
     while True:
         conn, addr = s.accept()
-        conn_time = now()
         request = conn.recv(1024)
         command = request.split()[1][4:]
-        comm_time = now()
         if command == b'on':
             r.on()
         elif command == b'off':
@@ -41,12 +39,13 @@ def serve():
         conn.send('Connection: close\n\n')
         conn.sendall(response)
         conn.close()
-        log_data = conn_time + ' Connected from: ' + addr[0]
-        if command:
-            log_data = log_data + ' Request: ' + str(command)[2:-1]
+        if not command:
+            log_data = 'Connected from: {0} with request: {1}'.format(addr[0], command.decode())
+        else:
+            log_data = 'Connected from: {0}'.format(addr[0])
         print(log_data)
         log_write(log_data)
-        sleep(10)
+        gc.collect()
 
 try:
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -59,7 +58,7 @@ except KeyboardInterrupt:
 finally:
     log_write(now() +' Closing Socket')
     s.close()
-
+    gc.collect()
 
 
 
