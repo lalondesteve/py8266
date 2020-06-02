@@ -60,10 +60,15 @@ def autoconnect(scan, conf):
 
 def ap_config():
     from html_server import HTMLServer
+    from time import sleep
     ap = network.WLAN(network.AP_IF)
     ap.config(essid=essid, authmode=1)
     ap.active(True)
-    return HTMLServer(ap.ifconfig()[0], html_get_func=get_portal_page)
+    ip = ap.ifconfig()[0]
+    while ip == '0.0.0.0':
+        sleep(1)
+        ip = ap.ifconfig()[0]
+    return HTMLServer(ap.ifconfig()[0])
 
 
 def extract_data(response):

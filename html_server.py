@@ -26,9 +26,9 @@ class HTMLServer(object):
         # gc.collect()
         if not self.s:
             self.s = self.init_socket()
+        print('Server started at', self.ip, self.port)
         while True:
             process = False
-            print('Server started at', self.ip, self.port)
             conn, addr = self.s.accept()
             request = conn.recv(1024)
             print(request)
