@@ -2,6 +2,7 @@ try:
     import usocket as socket
 except:
     import socket
+from time import sleep
 
 class HTMLServer(object):
     def __init__(self, ip, port=80,  html_get_func=None):
@@ -25,9 +26,9 @@ class HTMLServer(object):
         # gc.collect()
         if not self.s:
             self.s = self.init_socket()
+        print('Server started at', self.ip, self.port)
         while True:
             process = False
-            print('Server started at', self.ip, self.port)
             conn, addr = self.s.accept()
             request = conn.recv(1024)
             print(request)
@@ -41,6 +42,7 @@ class HTMLServer(object):
             conn.send(b'Connection: close\n\n')
             conn.sendall(response.encode('utf8'))
             conn.close()
+            sleep(.1)
             if process:
                 self.close()
                 return request
@@ -85,7 +87,7 @@ class HTMLServer(object):
 
         <p>The select element defines a drop-down list:</p>
 
-        <form action="/action_page.php" method="post">
+        <form action="/">
           <label for="cars">Choose a car:</label>
           <select id="cars" name="cars">
             <option value="volvo">Volvo</option>

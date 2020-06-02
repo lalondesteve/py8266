@@ -12,7 +12,8 @@ import wifi
 
 server = wifi.ap_config()
 data = server.serve()
-print(wifi.extract_data(data))
+print(data)
+gc.collect()
 data = server.serve()
 
 
@@ -44,8 +45,8 @@ data = server.serve()
 #
 # connect()
 
-connect()
+#connect()
 ntptime.settime()
-log_write('Reboot completed')
+#log_write('Reboot completed')
 gc.collect()
 # gc.threshold(gc.mem_free() // 4 + gc.mem_alloc())
