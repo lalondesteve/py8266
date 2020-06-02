@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<title>8266_Conf</title>
+<head>
+	<!--To prevent favicon.ico requests-->
+	<link rel="icon" href="data:;base64,iVBORw0KGgo="> 
+</head>
+<body>
+
+<h1>ap_name Configuration</h1>
+<h3>Select the Network you want to connect to:</h3>
+
+<form action="/connection">
+  <label for="ssid">Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+  <select id="ssid" name="ssid">
+    <option value="None"> </option>
+	scan_ssid
+  </select>
+  <br><br>
+  <label for="psswd">Password:</label>
+  <input type="text" id="psswd" name="psswd" value=""><br><br>
+  <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>
