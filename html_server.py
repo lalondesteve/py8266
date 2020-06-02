@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 try:
     import usocket as socket
 except:
@@ -30,15 +31,16 @@ class HTMLServer(object):
         while True:
             process = False
             conn, addr = self.s.accept()
-            request = conn.recv(1024)
+            request = conn.recv(8192)
             print(request)
             if request.split()[0] == b'POST':
+                request = request
                 response = self.processing_html()
                 process = True
             else:
                 response = self.html()
             conn.send(b'HTTP/1.1 200 OK\n')
-            conn.send(b'Content-Type: text/html\n')
+            conn.send(b'Content-Type: text/html; charset=utf-8\n\n')
             conn.send(b'Connection: close\n\n')
             conn.sendall(response.encode('utf8'))
             conn.close()
@@ -59,6 +61,7 @@ class HTMLServer(object):
         <head>
         	<!--To prevent favicon.ico requests-->
         	<link rel="icon" href="data:;base64,iVBORw0KGgo="> 
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         </head>
         <body>
 
@@ -79,7 +82,9 @@ class HTMLServer(object):
         <html>
         <head>
         	<!--To prevent favicon.ico requests-->
-        	<link rel="icon" href="data:;base64,iVBORw0KGgo="> 
+            <meta charset="utf-8">
+        	<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         </head>
         <body>
 
@@ -87,7 +92,7 @@ class HTMLServer(object):
 
         <p>The select element defines a drop-down list:</p>
 
-        <form action="/" method="post">
+        <form action="/" method="post" enctype="text/plain">
           <label for="ssid">Choose a car:</label>
           <select id="ssid" name="ssid">
             <option value="volvo">Volvo</option>

@@ -11,10 +11,15 @@ gc.collect()
 import wifi
 
 server = wifi.ap_config()
-data = server.serve()
-print(wifi.extract_data(data))
-gc.collect()
-data = server.serve()
+cont = False
+while not cont:
+    data = server.serve()
+    for i in data.split():
+        print(i)
+    e = wifi.extract_data(data)
+    print(e)
+    gc.collect()
+
 
 
 # wlan = network.WLAN(network.STA_IF)
@@ -46,7 +51,7 @@ data = server.serve()
 # connect()
 
 #connect()
-ntptime.settime()
+# ntptime.settime()
 #log_write('Reboot completed')
 gc.collect()
 # gc.threshold(gc.mem_free() // 4 + gc.mem_alloc())
