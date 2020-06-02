@@ -12,7 +12,7 @@ import wifi
 
 server = wifi.ap_config()
 data = server.serve()
-print(data)
+print(wifi.extract_data(data))
 gc.collect()
 data = server.serve()
 

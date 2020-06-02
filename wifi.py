@@ -72,9 +72,10 @@ def ap_config():
 
 
 def extract_data(response):
-    response = response.split()[1]
+    response = response.split()[-1]
     i = response.find(b'&')
-    ssid = response[7:i]
-    psswd = response[i+6:]
+    ssid = response[5:i]
+    psswd = response[i+7:]
+    return ssid, psswd
 
 
