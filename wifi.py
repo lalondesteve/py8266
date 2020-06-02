@@ -73,8 +73,8 @@ def ap_config():
 
 def extract_data(response):
     response.split(b'\n')
-    ssid = [x.rstrip() for x in response if x.startwith(b'ssid=')][0]
-    psswd = [x.rstrip() for x in response if x.startwith(b'psswd=')][0]
+    ssid = [x.rstrip() for x in response if x.startswith(b'ssid=')]
+    psswd = [x.rstrip() for x in response if x.startswith(b'psswd=')]
     return ssid, psswd
 
 

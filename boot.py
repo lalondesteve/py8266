@@ -14,10 +14,9 @@ server = wifi.ap_config()
 cont = False
 while not cont:
     data = server.serve()
-    for i in data.split():
-        print(i)
-    e = wifi.extract_data(data)
-    print(e)
+    print(wifi.extract_data(data))
+    # e = wifi.extract_data(data)
+    # print(e)
     gc.collect()
 
 
