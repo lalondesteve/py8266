@@ -3,7 +3,7 @@ import esp
 esp.osdebug(None)
 import machine, network, gc, ntptime
 # import uos
-#uos.dupterm(None, 1) # disable REPL on UART(0)
+# uos.dupterm(None, 1) # disable REPL on UART(0)
 import webrepl
 webrepl.start()
 gc.collect()
@@ -44,4 +44,8 @@ data = server.serve()
 #
 # connect()
 
+connect()
 ntptime.settime()
+log_write('Reboot completed')
+gc.collect()
+# gc.threshold(gc.mem_free() // 4 + gc.mem_alloc())
