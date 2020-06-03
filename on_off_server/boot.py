@@ -14,6 +14,7 @@ from time import sleep
 
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
+print('Connection status:', wlan.isconnected())
 
 def get_net_conf():
     with open('ssid.conf', 'r') as f:
@@ -25,9 +26,10 @@ def connect():
     attempts = 0
     ssid, psswd = get_net_conf()
     while not wlan.isconnected():
+        print('Connecting to :', ssid)
         wlan.connect(ssid, psswd)
         attempts += 1
-        sleep(5)
+        sleep(4)
         if attempts > 3:
             break
     sleep(1)
@@ -44,7 +46,8 @@ def log_write(data):
         f.write(data)
         f.write('\n')
 
-print(connect())
+if not wlan.isconnected():
+    print('Connection status:', connect())
 
 try:
     ntptime.settime()
