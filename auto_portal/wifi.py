@@ -72,7 +72,7 @@ def autoconnect():
                 my_net = c
                 break
     if my_net:
-        connect(my_net)
+        connect(*my_net)
         return wlan.isconnected()
     else:
         return -1
