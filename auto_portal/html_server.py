@@ -33,18 +33,22 @@ class HTMLServer(object):
             conn, addr = self.s.accept()
             request = conn.recv(8192)
             print(request)
-            if request.split()[0] == b'POST':
+            if request and request.split()[0] == b'POST':
                 request = request
                 response = self.processing_html()
                 process = True
             else:
                 response = self.html()
-            conn.send(b'HTTP/1.1 200 OK\n')
-            conn.send(b'Content-Type: text/html; charset=utf-8\n\n')
-            conn.send(b'Connection: close\n\n')
-            conn.sendall(response.encode('utf8'))
-            conn.close()
-            sleep(.1)
+            try:
+                conn.send(b'HTTP/1.1 200 OK\n')
+                conn.send(b'Content-Type: text/html; charset=utf-8\n\n')
+                conn.send(b'Connection: close\n\n')
+                conn.sendall(response)
+            except Exception as e:
+                print(e)
+            finally:
+                conn.close()
+            sleep(.2)
             if process:
                 self.close()
                 return request
@@ -55,7 +59,6 @@ class HTMLServer(object):
     
     def processing_html(self):
         return """
-        
         <!DOCTYPE html>
         <html>
         <head>
